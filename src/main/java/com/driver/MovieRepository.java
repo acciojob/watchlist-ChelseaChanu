@@ -28,7 +28,9 @@ public class MovieRepository {
 
     public void addMovieDirectorPair(String movie, String director){
         if(movieDB.containsKey(movie) && directorDB.containsKey(director)){
-            List<String> movieList =  directorMoviePair.get(director);
+            List<String> movieList =  new ArrayList<>();
+            if(directorMoviePair.containsKey(director))
+                movieList = directorMoviePair.get(director);
             movieList.add(movie);
             directorMoviePair.put(director, movieList);
         }

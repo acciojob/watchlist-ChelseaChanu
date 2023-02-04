@@ -28,34 +28,22 @@ public class MovieRepository {
 
     public void addMovieDirectorPair(String movie, String director){
         if(movieDB.containsKey(movie) && directorDB.containsKey(director)){
-            if(directorMoviePair.containsKey(director)){
-                directorMoviePair.get(director).add(movie);
-            }
-            else{
-                List<String> movieList = new ArrayList<>();
-                movieList.add(movie);
-                directorMoviePair.put(director, movieList);
-            }
+            List<String> movieList =  directorMoviePair.get(director);
+            movieList.add(movie);
+            directorMoviePair.put(director, movieList);
         }
     }
 
     public Movie getMovieByName(String name){
-        if(movieDB.containsKey(name))
-            return movieDB.get(name);
-        return null;
+        return movieDB.get(name);
     }
 
     public Director getDirectorByName(String name){
-        if(directorDB.containsKey(name))
         return directorDB.get(name);
-        return null;
     }
 
     public List<String> getMoviesByDirectorName(String name){
-        if(directorMoviePair.containsKey(name)){
-            return directorMoviePair.get(name);
-        }
-        return null;
+        return directorMoviePair.get(name);
     }
 
     public List<String> findAllMovies(){
@@ -91,6 +79,5 @@ public class MovieRepository {
                 }
             }
         }
-        //directorMoviePair.clear();
     }
 }

@@ -68,25 +68,29 @@ public class MovieRepository {
 
     public void deleteDirectorByName(String name){
         if(directorMoviePair.containsKey(name)){
-            List<String> movieList = directorMoviePair.remove(name);
+            List<String> movieList = directorMoviePair.get(name);
             for(String movieName:movieList){
                 if(movieDB.containsKey(movieName)){
                     movieDB.remove(movieName);
                 }
             }
+            directorMoviePair.remove(name);
+        }
+
+        if(directorDB.containsKey(name)){
+            directorDB.remove(name);
         }
     }
 
     public void deleteAllDirectors(){
         directorDB.clear();
-        for(HashMap.Entry<String,List<String>>e: directorMoviePair.entrySet()){
-            List<String> movieList = e.getValue();
-            for(String movieName:movieList){
-                if(movieDB.containsKey(movieName)){
-                    movieDB.remove(movieName);
+        for(String director:directorMoviePair.keySet()){
+            for(String movie:directorMoviePair.get(director)){
+                if(movieDB.containsKey(movie)){
+                    movieDB.remove(movie);
                 }
             }
         }
-        directorMoviePair.clear();
+        //directorMoviePair.clear();
     }
 }
